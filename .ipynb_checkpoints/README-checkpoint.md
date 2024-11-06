@@ -13,32 +13,32 @@ This project involves creating an interactive map to visualize earthquake data p
 * Future Enhancements
 
 ## **Project Structure**
-leaflet-challenge/
-|
-│ Starter_Code
-|    |-Images
-|    |- index.html             # Main HTML file that loads the map
-|    |- static/
-|       |-- css/
-|       │   |--- style.css      # CSS for map styling
-|       |-- js/
-|           |--- logic.js       # JavaScript logic to load and display earthquake data
-| LICENSE
-| README.md 
+* leaflet-challenge/
+
+* Starter_Code
+   * -Images
+    * - index.html             # Main HTML file that loads the map
+   * - static/
+      * -- css/
+       *   --- style.css      # CSS for map styling
+       * -- js/
+          * --- logic.js       # JavaScript logic to load and display earthquake data
+* LICENSE
+* README.md 
 ## **Installation**:
-* 1. Clone this repository to your local machine:
+*  Clone this repository to your local machine:
       - "git clone https://github.com/yourusername/leaflet-challenge.git
 "
-* 2. Open the project directory:
+*  Open the project directory:
      - "cd leaflet-challenge"
 
 ## **Usage**
-* 1. Open index.html in your browser using a local server to enable fetching of GeoJSON data.
-* 2. The map will load and display earthquake data from the past 7 days, fetched from the USGS API.
-* 3. You can click on each earthquake marker for additional details, such as:
-* -Location
-* -Magnitude
-* -Depth
+*  Open index.html in your browser using a local server to enable fetching of GeoJSON data.
+*  The map will load and display earthquake data from the past 7 days, fetched from the USGS API.
+*  You can click on each earthquake marker for additional details, such as:
+    * -Location
+    * -Magnitude
+    * -Depth
 
 ## **Interactive Features**
 * -Magnitude Scaling: Earthquake markers scale in size based on magnitude, making larger earthquakes more prominent.
