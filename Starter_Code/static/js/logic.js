@@ -1,7 +1,7 @@
 // static/js/logic.js
 
 // Create the map centered on the world with an appropriate zoom level
-let map = L.map("map").setView([20, 0], 2);
+let map = L.map("map").setView([20, -100], 3);
 
 // Add a tile layer (base map)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -16,9 +16,9 @@ const tectonicPlatesUrl = "https://raw.githubusercontent.com/fraxen/tectonicplat
 
 // Define a function to get color based on earthquake depth
 function getColor(depth) {
-  return depth > 90 ? '#ff5f65' :
+  return depth > 90 ? '#DC143C' :
          depth > 70 ? '#fca35d' :
-         depth > 50 ? '#fdb72a' :
+         depth > 50 ? '#4169E1' :
          depth > 30 ? '#f7db11' :
          depth > 10 ? '#dcf400' :
                       '#a3f600';
@@ -26,34 +26,34 @@ function getColor(depth) {
 
 // Define a function to get radius based on magnitude
 function getRadius(magnitude) {
-  return magnitude === 0 ? 1 : magnitude * 4;
+  return magnitude === 0 ? 1 : magnitude * 3;
 }
 
 // Add the earthquake data to the map
-let earthquakesLayer = null;  // Placeholder for earthquakes layer
+let earthquakesLayer = null; 
 d3.json(earthquakeUrl).then(data => {
-  earthquakesLayer = L.geoJSON(data, {
-    // For each feature (earthquake), create a circle marker
-    pointToLayer: function(feature, latlng) {
-      return L.circleMarker(latlng, {
-        radius: getRadius(feature.properties.mag),
-        fillColor: getColor(feature.geometry.coordinates[2]), // Use depth (3rd coordinate) for color
-        color: "#000",
-        weight: 0.5,
-        opacity: 1,
-        fillOpacity: 0.7
-      });
-    },
-    // Bind popups with earthquake details
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup(`
-        <strong>Location:</strong> ${feature.properties.place}<br>
-        <strong>Magnitude:</strong> ${feature.properties.mag}<br>
-        <strong>Depth:</strong> ${feature.geometry.coordinates[2]} km
-      `);
-    }
+  let earthquakesLayer = L.geoJSON(data, {
+      pointToLayer: function(feature, latlng) {
+          return L.circleMarker(latlng, {
+              radius: getRadius(feature.properties.mag),
+              fillColor: getColor(feature.geometry.coordinates[2]),
+              color: "#000",
+              weight: 0.5,
+              opacity: 1,
+              fillOpacity: 0.7
+          });
+      },
+      onEachFeature: function(feature, layer) {
+          layer.bindPopup(`
+            <strong>Location:</strong> ${feature.properties.place}<br>
+            <strong>Magnitude:</strong> ${feature.properties.mag}<br>
+            <strong>Depth:</strong> ${feature.geometry.coordinates[2]} km
+          `);
+      }
   }).addTo(map);
   
+  // Automatically fit the map to the bounds of the earthquake data
+  map.fitBounds(earthquakesLayer.getBounds());
   // Add the legend to the map after adding the earthquake layer
   addLegend();
 });
@@ -78,11 +78,11 @@ function addLegend() {
 }
 
 // Load and add the tectonic plates data to the map
-let tectonicPlatesLayer = null;  // Placeholder for tectonic plates layer
+let tectonicPlatesLayer = null;
 d3.json(tectonicPlatesUrl).then(data => {
   tectonicPlatesLayer = L.geoJSON(data, {
     style: {
-      color: "#ff69b4",  // Choose a color to distinguish plate boundaries
+      color: "#32CD32",
       weight: 2
     }
   }).addTo(map);
